@@ -1,10 +1,12 @@
 <div class="content">
   <h1><%= "#{@application.name}'s Application" %></h1>
-  <table class="table">
+  <table class="application">
       <thead>
         <th scope="col">Status</th>
         <th scope="col">Address</th>
         <th scope="col">Applying for: </th>
+        <th scope="col">I'd be a good home because...</th>
+        <th scope="col"></th>
       </thead>  
 
       <tbody>
@@ -16,14 +18,24 @@
             </td>
             <td class="apply_to_pet">
               <% @application.pets.each do |pet| %>
-              <p><%= link_to pet.name, "/pets/#{pet.id}" %></p>
+                <p><%= link_to pet.name, "/pets/#{pet.id}" %></p>
               <% end %>
             </td>
+            <td> <%= @application.description %></td>
             <td>
               <p><%= link_to "Edit", "/applications/#{@application.id}/edit" %></p>
             </td>
+          </tr>
       </tbody>
     </table>
+
+    <% if @application.pets.count > 0 %>
+      <%= form_with url: "/applications/#{@application.id}", method: :patch, local: true  do |f| %>
+        <p><%= f.label :description, "I'd be good home because..." %></p>
+        <p><%= f.text_area :description %></p>
+        <p><%= f.submit "Submit My Application" %></p>
+        <% end %>
+    <% end %>
 
     <h1> Search for Adoptable Pets </h1>
     <%= form_with url: "/applications/#{@application.id}", method: :get, local: true do |f| %>
