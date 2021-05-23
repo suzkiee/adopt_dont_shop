@@ -5,6 +5,14 @@ class Shelter < ApplicationRecord
 
   has_many :pets, dependent: :destroy
 
+  def find_name_and_city 
+    Shelter.find_by_sql("SELECT shelters.name, shelters.city FROM shelters WHERE id = #{self.id}")
+  end 
+
+  def self.order_by_reverse_alphabetical
+    find_by_sql("SELECT * FROM shelters ORDER BY shelters.name DESC")
+  end
+
   def self.order_by_recently_created
     order(created_at: :desc)
   end
