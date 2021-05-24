@@ -63,7 +63,12 @@
             <th scope="row"><%= link_to pet.name, "/pets/#{pet.id}" %></th>
             <td><p><%= pet.age %> years old</p></td>
             <td><p><%= pet.breed %></p></td>
-            <td><%= button_to "Adopt #{pet.name}", "/pet_applications/#{@application.id}/#{pet.id}", method: :patch%>
+            <td>
+              <%= form_with url: "/pet_applications", method: :create, local: true do |f| %>
+                <%= f.hidden_field :pet_id, :value => pet.id %>
+                <%= f.hidden_field :application_id, value => application.id %>
+                <%= f.submit "Adopt #{pet_name}" %>
+              <% end %>
             </td>
           </tr>
         <% end %>
