@@ -58,7 +58,7 @@ RSpec.describe 'the application show' do
 
     fill_in "I'd be good home because...", with: "I'm ready to love again"
     click_on "Submit My Application"
-    save_and_open_page    
+    
     expect(page).to have_content("I'm ready to love again")
   end
 end

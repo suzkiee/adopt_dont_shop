@@ -3,8 +3,8 @@ require 'rails_helper'
 
 RSpec.describe 'the application update page' do
   before :each do
-    @app_1 = Application.create!(name: "Suzie Kim", street_address: "123 State Street", city: "Boston", state: "Masachusetts", zip_code: 02115, description: "I'm ready to love again" )
-    @app_2 = Application.create!(name: "Benjamin Blue", street_address: "545 Boston Street", city: "Houston", state: "New York", zip_code: 02115, description: "I'm also ready")
+    @app_1 = Application.create!(name: "Suzie Kim", street_address: "123 State Street", city: "Boston", state: "Massachusetts", zip_code: "02155", description: "I'm ready to love again" )
+    @app_2 = Application.create!(name: "Benjamin Blue", street_address: "545 Boston Street", city: "Houston", state: "New York", zip_code: "02111", description: "I'm also ready")
   end
 
   it "shows the veterinarian edit form" do
@@ -23,26 +23,26 @@ RSpec.describe 'the application update page' do
   context "given valid data" do
     it "submits the edit form and updates the application" do
       visit "/applications/#{@app_1.id}"  
-      
+   
       expect(page).to have_content('123 State Street')
       expect(page).to have_content('Boston')
-      expect(page).to have_content('02115')
+      expect(page).to have_content('02155')
 
       visit "/applications/#{@app_1.id}/edit"
 
       fill_in 'Street Address', with: '555 Other Street'
       fill_in 'City', with: 'Medford'
       fill_in 'State', with: 'Massachusetts'
-      fill_in 'Zip code', with: 02155
+      fill_in 'Zip code', with: "02152"
       click_button 'Save'
 
       expect(page).to have_current_path("/applications/#{@app_1.id}")
       expect(page).to have_content('555 Other Street')
       expect(page).to have_content('Medford')
-      expect(page).to have_content('02155')
+      expect(page).to have_content('02152')
       expect(page).to_not have_content('123 State Street')
       expect(page).to_not have_content('Boston')
-      expect(page).to_not have_content('02115')
+      expect(page).to_not have_content('02155')
     end
   end
 
