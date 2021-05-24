@@ -37,6 +37,9 @@
         <% end %>
     <% end %>
 
+
+
+  <% if @application.status == "In Progress" %>
     <h1> Search for Adoptable Pets </h1>
     <%= form_with url: "/applications/#{@application.id}", method: :get, local: true do |f| %>
       <%= f.label :search %>
@@ -44,26 +47,27 @@
       <%= f.submit "Search" %>
     <% end %>
 
-  <table>
-    <thead>
-      <tr>
-        <th scope="col">Name</th>
-        <th scope="col">Age</th>
-        <th scope="col">Breed</th>
-        <th scope="col">Adopt?</th>
-      </tr>
-    </thead>
-
-    <tbody>
-      <% @pets.each do |pet| %>
-        <tr> 
-          <th scope="row"><%= link_to pet.name, "/pets/#{pet.id}" %></th>
-          <td><p><%= pet.age %> years old</p></td>
-          <td><p><%= pet.breed %></p></td>
-          <td><%= button_to "Adopt #{pet.name}", "/pet_applications/#{@application.id}/#{pet.id}", method: :patch%>
-          </td>
+    <table>
+      <thead>
+        <tr>
+          <th scope="col">Name</th>
+          <th scope="col">Age</th>
+          <th scope="col">Breed</th>
+          <th scope="col">Adopt?</th>
         </tr>
-      <% end %>
-    </tbody>
-  </table>
+      </thead>
+
+      <tbody>
+        <% @pets.each do |pet| %>
+          <tr> 
+            <th scope="row"><%= link_to pet.name, "/pets/#{pet.id}" %></th>
+            <td><p><%= pet.age %> years old</p></td>
+            <td><p><%= pet.breed %></p></td>
+            <td><%= button_to "Adopt #{pet.name}", "/pet_applications/#{@application.id}/#{pet.id}", method: :patch%>
+            </td>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
+  <% end %>
 </div>
