@@ -24,10 +24,10 @@
     
     <p>
       <%= f.label :zip_code %>
-      <%= f.number_field :zip_code, in: 0..99999, step: 1 %>
+      <%= f.text_field :zip_code %>
     </p>
 
-    <% hidden_field :status, value "In Progress" %>
+    <% hidden_field :status, value: "In Progress" %>
 
     <p><%= f.submit "Submit" %></p>
   <% end %>
