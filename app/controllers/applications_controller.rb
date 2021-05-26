@@ -20,11 +20,13 @@ class ApplicationsController < ApplicationController
 
   def show
     @application = Application.find(params[:id])
-    
-    if params[:search].present?
-      @pets = Pet.adoptable.search(params[:search])
+    @pets_count = @application.pets.count
+
+    if params[:adopt] && !application.pets.include?(Pet.find(params[:adopt])) 
+    elsif params[:search] 
+      @pets = Pet.partial_search(params[:search])
     else 
-      @pets = Pet.adoptable 
+      @pets = []
     end
   end
 

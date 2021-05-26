@@ -6,7 +6,8 @@ class Shelter < ApplicationRecord
   has_many :pets, dependent: :destroy
 
   def find_name_and_city 
-    Shelter.find_by_sql("SELECT shelters.name, shelters.city FROM shelters WHERE id = #{self.id}")
+    Shelter.find_by_sql("SELECT shelters.name, shelters.city 
+                         FROM shelters WHERE id = #{self.id}")
   end 
 
   def self.order_by_reverse_alphabetical
@@ -38,5 +39,13 @@ class Shelter < ApplicationRecord
 
   def shelter_pets_filtered_by_age(age_filter)
     adoptable_pets.where('age >= ?', age_filter)
+  end
+
+  def self.has_pending_applications
+    joins(pets: [:applications]).where("applications.status = 'Pending'")
+  end
+
+  def self.order_alphabetically 
+    order(:name)
   end
 end

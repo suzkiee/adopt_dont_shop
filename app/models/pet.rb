@@ -5,6 +5,14 @@ class Pet < ApplicationRecord
   has_many :pet_applications, dependent: :destroy
   has_many :applications, through: :pet_applications, dependent: :destroy
   
+  def self.partial_search(result)
+    where("name ILIKE ?", "%#{result}%")
+  end
+
+  def self.average_age_of_all
+    average(:age)
+  end
+
   def shelter_name
     shelter.name
   end
