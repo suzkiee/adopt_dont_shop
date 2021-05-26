@@ -24,13 +24,10 @@
     
     <p>
       <%= f.label :zip_code %>
-      <%= f.number_field :zip_code, in: 0..99999, step: 1 %>
+      <%= f.text_field :zip_code %>
     </p>
 
-    <p> 
-      <%= f.label :description, "Why are you a good home?" %>
-      <%= f.text_area :description, value: "I'd be a good home because..." %>
-    </p>
+    <% hidden_field :status, value: "In Progress" %>
 
     <p><%= f.submit "Submit" %></p>
   <% end %>

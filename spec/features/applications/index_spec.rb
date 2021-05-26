@@ -2,8 +2,8 @@ require 'rails_helper'
 
 RSpec.describe 'the applications index page' do
   before :each do
-    @app_1 = Application.create!(name: "Suzie Kim", street_address: "123 State Street", city: "Boston", state: "Masachusetts", zip_code: 02115, description: "I'm ready to love again" )
-    @app_2 = Application.create!(name: "Benjamin Blue", street_address: "545 Boston Street", city: "Houston", state: "New York", zip_code: 02115, description: "I'm also ready")
+    @app_1 = Application.create!(name: "Suzie Kim", street_address: "123 State Street", city: "Boston", state: "Masachusetts", zip_code: "02115", description: "I'm ready to love again" )
+    @app_2 = Application.create!(name: "Benjamin Blue", street_address: "545 Boston Street", city: "Houston", state: "New York", zip_code: "02115", description: "I'm also ready")
   end
 
   it "shows all applications and all their attributes" do
@@ -17,7 +17,7 @@ RSpec.describe 'the applications index page' do
   it "links to show page" do
     visit "/applications"
     
-    click_on("#{@app_1.name}}")
+    click_on("#{@app_1.name}")
 
     expect(current_path).to eq("/applications/#{@app_1.id}")
   end
@@ -29,6 +29,6 @@ RSpec.describe 'the applications index page' do
       click_on("Update")
     end
 
-    expect(current_path).to eq("/applications/edit")
+    expect(current_path).to eq("/applications/#{@app_1.id}/edit")
   end
 end
