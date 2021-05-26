@@ -10,10 +10,18 @@ class PetApplicationsController < ApplicationController
   end
 
   def update_status
-    application = Application.find(params[:application_id])
+    @application = Application.find(params[:application_id])
     pet_app = PetApplication.find_application(params[:pet_id], params[:application_id])
+    pets = PetApplication.find_pets(params[:pet_id], params[:application_id])
     pet_app.update(:status => params[:status_update])
     
-    redirect_to "/admin/applications/#{application.id}"
+    if @application.all_pets_accepted?
+      pets.each do |pet|
+        pet.toggle_adoptable_status
+      end
+      @application.update(status: "Approved")
+    end
+
+    redirect_to "/admin/applications/#{@application.id}"
   end
 end
