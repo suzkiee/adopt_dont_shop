@@ -31,4 +31,14 @@ RSpec.describe 'the admin applications page'do
 
     expect(page).to have_content("Accepted")
   end
+
+  it 'can reject application to certain pet' do
+    visit "/admin/applications/#{@app.id}"
+
+    expect(page).to have_content("Pending")
+
+    first(".row").click_on "Reject"
+
+    expect(page).to have_content("Rejected")
+  end
 end
