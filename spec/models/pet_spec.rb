@@ -17,7 +17,7 @@ RSpec.describe Pet, type: :model do
   before(:each) do
     @shelter_1 = Shelter.create(name: 'Aurora shelter', city: 'Aurora, CO', foster_program: false, rank: 9)
     @pet_1 = @shelter_1.pets.create(name: 'Mr. Pirate', breed: 'tuxedo shorthair', age: 5, adoptable: true)
-    @pet_2 = @shelter_1.pets.create(name: 'Clawdia', breed: 'shorthair', age: 3, adoptable: true)
+    @pet_2 = @shelter_1.pets.create(name: 'Clawdia', breed: 'shorthair', age: 4, adoptable: true)
     @pet_3 = @shelter_1.pets.create(name: 'Ann', breed: 'ragdoll', age: 3, adoptable: false)
   end
 
@@ -45,6 +45,12 @@ RSpec.describe Pet, type: :model do
     describe '.partial_search' do
       it 'returns partial matches' do
         expect(Pet.search("Cla")).to eq([@pet_2])
+      end
+    end
+
+    describe '.average_age_of_all' do
+      it 'returns average age of all pets' do
+        expect(Pet.average_age_of_all).to eq(4)
       end
     end
   end
