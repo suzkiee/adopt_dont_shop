@@ -24,5 +24,6 @@ RSpec.describe 'the admin show' do
 
     expect(page).to have_content("Statistics")
     expect(page).to have_content("Average Age of All Pets: 2")
+    expect(page).to have_content("Number of Adoptable Pets: 2")
   end
 end 
