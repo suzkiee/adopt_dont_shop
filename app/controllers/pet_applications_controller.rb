@@ -10,10 +10,10 @@ class PetApplicationsController < ApplicationController
   end
 
   def update_status
-    @application = Application.find(params[:application_id])
+    application = Application.find(params[:application_id])
     pet_app = PetApplication.find_application(params[:pet_id], params[:application_id])
     pet_app.update(:status => params[:status_update])
     
-    redirect_to "/admin/applications/#{@application.id}"
+    redirect_to "/admin/applications/#{application.id}"
   end
 end
