@@ -13,4 +13,10 @@ class Application < ApplicationRecord
       app.status == "Accepted"
     end
   end
+
+  def any_pets_rejected?
+    pet_applications.any? do |app|
+      app.status == "Rejected"
+    end
+  end
 end
