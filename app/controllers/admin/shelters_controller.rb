@@ -4,7 +4,7 @@ class Admin::SheltersController < ApplicationController
   # before_action  :require_admin
   def index
     @shelters = Shelter.order_by_reverse_alphabetical
-    @pending = Shelter.has_pending_applications
+    @pending = Shelter.order_alphabetically.has_pending_applications
   end
 
   def show

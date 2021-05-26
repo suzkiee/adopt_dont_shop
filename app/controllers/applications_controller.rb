@@ -25,7 +25,7 @@ class ApplicationsController < ApplicationController
     elsif params[:search] 
       @pets = Pet.partial_search(params[:search])
     else 
-      @pets = Pet.adoptable 
+      @pets = []
     end
   end
 
