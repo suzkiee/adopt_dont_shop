@@ -9,6 +9,10 @@ class Pet < ApplicationRecord
     where("name ILIKE ?", "%#{result}%")
   end
 
+  def self.average_age_of_all
+    average(:age)
+  end
+
   def shelter_name
     shelter.name
   end
