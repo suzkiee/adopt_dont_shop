@@ -13,9 +13,9 @@ RSpec.describe PetApplication, type: :model do
       shelter = Shelter.create!(name: 'Aurora shelter', city: 'Aurora, CO', foster_program: false, rank: 9)
       pet = Pet.create!(adoptable: true, age: 1, breed: 'sphynx', name: 'Lucille Bald', shelter_id: shelter.id)
       app = Application.create!(name: "Suzie Kim", street_address: "123 State Street", city: "Boston", state: "Masachusetts", zip_code: 02115, description: "none", status: "Pending")
-      PetApplication.create!(pet: pet, application: app)
+      pet_app = PetApplication.create!(pet: pet, application: app)
 
-      expect(PetApplication.find_application(pet.id, app.id)).to eq(app)
+      expect(PetApplication.find_application(pet.id, app.id)).to eq(pet_app)
     end
   end
 end
