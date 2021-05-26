@@ -13,6 +13,17 @@ RSpec.describe 'the admin applications page'do
     PetApplication.create!(pet: @pet_3, application: @app)
   end
 
+  it "shows the application and all its attributes" do
+    visit "/admin/applications/#{@app.id}"
+
+    expect(page).to have_content(@app.name)
+    expect(page).to have_content(@app.street_address)
+    expect(page).to have_content(@app.city)
+    expect(page).to have_content(@app.state)
+    expect(page).to have_content(@app.zip_code)
+    expect(page).to have_content(@app.status)
+  end
+
   it 'shows pets on application' do
     visit "/admin/applications/#{@app.id}"
     
@@ -27,7 +38,7 @@ RSpec.describe 'the admin applications page'do
 
     expect(page).to have_content("Pending")
 
-    first(".row").click_on "Approve"
+    first(".pets_info").click_on "Approve"
 
     expect(page).to have_content("Accepted")
   end
@@ -37,8 +48,19 @@ RSpec.describe 'the admin applications page'do
 
     expect(page).to have_content("Pending")
 
-    first(".row").click_on "Reject"
+    first(".pets_info").click_on "Reject"
 
     expect(page).to have_content("Rejected")
+  end
+
+  it "changes application status to 'Approved' when all pets are approved" do
+    visit "/admin/applications/#{@app.id}"
+
+    expect(page).to have_content("Pending")
+
+    page.all("Approve").each &:click
+
+    expect(@application.status).to eq("Approved")
+    expect(page).to have_content("Approved")
   end
 end
