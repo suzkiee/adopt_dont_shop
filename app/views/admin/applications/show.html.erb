@@ -1,0 +1,30 @@
+<div class="content">
+  <table class="table">
+    <thead>
+      <th scope="col">Pet Name</th>
+      <th scope="col">Submitted On</th>
+      <th scope="col">Status</th>
+      <th scoe="col"></th>
+    </thead>
+
+    <tbody>
+      <% @pets.each do |pet| %>
+        <tr class="row">
+          <th scope><%= pet.name %></th> 
+          <td><%= pet.updated_at %></td>
+          <td><%= @application.status %></td>
+          <td>
+            <% if @application.status == "Pending" %>
+              <%= form_with url: "/pet_applications", method: :patch, local: true do |f| %>
+                <%= f.hidden_field :pet_id, :value => pet.id %>
+                <%= f.hidden_field :application_id, :value => @application.id %>
+                <%= f.hidden_field :status_update, :value => "Accepted" %>
+                <%= f.submit "Approve" %>
+              <% end %>
+            <% end %>
+          </td>
+        </tr>
+     <% end %>
+    </tbody>
+  </table>
+</div>
