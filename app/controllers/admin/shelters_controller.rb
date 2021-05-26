@@ -10,6 +10,7 @@ class Admin::SheltersController < ApplicationController
   def show
     shelter = Shelter.find(params[:id])
     @shelter_details = shelter.find_name_and_city
+    @average_age = Pet.average_age_of_all
   end
 
   # def require_admin 
