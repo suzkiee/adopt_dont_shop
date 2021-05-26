@@ -58,9 +58,11 @@ RSpec.describe 'the admin applications page'do
 
     expect(page).to have_content("Pending")
 
-    page.all("Approve").each &:click
-
-    expect(@application.status).to eq("Approved")
+    3.times do 
+      first(:button, 'Approve').click
+    end
+   
+    expect(page).to have_content("Accepted")
     expect(page).to have_content("Approved")
   end
 end
