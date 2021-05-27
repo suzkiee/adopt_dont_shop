@@ -19,4 +19,10 @@ class Application < ApplicationRecord
       app.status == "Rejected"
     end
   end
+
+  def pending_pet_apps 
+    pet_applications.find_all do |app|
+      app.status == "Pending"
+    end
+  end
 end
