@@ -12,6 +12,7 @@ class Admin::SheltersController < ApplicationController
     @shelter_details = shelter.find_name_and_city
     @average_age = Pet.average_age_of_all
     @adoptable_pets = Pet.adoptable.count
+    @adopted_pets = shelter.adopted_pets_count
   end
 
   # def require_admin 
