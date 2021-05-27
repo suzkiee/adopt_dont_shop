@@ -1,7 +1,6 @@
 # app/controllers/admin/shelters_controller
 
 class Admin::SheltersController < ApplicationController 
-  # before_action  :require_admin
   def index
     @shelters = Shelter.order_by_reverse_alphabetical
     @pending = Shelter.order_alphabetically.has_pending_applications
@@ -14,10 +13,4 @@ class Admin::SheltersController < ApplicationController
     @adoptable_pets = Pet.adoptable.count
     @adopted_pets = shelter.adopted_pets_count
   end
-
-  # def require_admin 
-  #   unless current_user.admin?
-  #     redirect_to "/shelters"
-  #   end
-  # end
 end
