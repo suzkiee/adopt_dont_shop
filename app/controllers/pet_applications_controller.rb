@@ -22,6 +22,10 @@ class PetApplicationsController < ApplicationController
       @application.update(status: "Approved")
     end
 
+    if @application.any_pets_rejected?
+      @application.update(status: "Rejected")
+    end
+    
     redirect_to "/admin/applications/#{@application.id}"
   end
 end
