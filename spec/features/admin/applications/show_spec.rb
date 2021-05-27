@@ -65,4 +65,20 @@ RSpec.describe 'the admin applications page'do
     expect(page).to have_content("Accepted")
     expect(page).to have_content("Approved")
   end
+
+  it "changes application status to 'Rejected' when one or more pets are rejected" do
+    visit "/admin/applications/#{@app.id}"
+
+    expect(page).to have_content("Pending")
+
+    2.times do 
+      first(:button, 'Approve').click
+    end
+
+    click_on("Reject")
+   
+    within('.application') do
+      expect(page).to have_content("Rejected")
+    end
+  end
 end
