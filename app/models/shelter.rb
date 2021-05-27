@@ -48,4 +48,8 @@ class Shelter < ApplicationRecord
   def self.order_alphabetically 
     order(:name)
   end
+
+  def adopted_pets_count
+    pets.where(adoptable: :false).count
+  end
 end
