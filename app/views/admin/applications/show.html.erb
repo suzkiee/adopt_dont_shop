@@ -1,0 +1,65 @@
+<div class="content">
+  <h1><%= "#{@application.name}'s Application" %></h1>
+  <table class="application">
+      <thead>
+        <th scope="col">Status</th>
+        <th scope="col">Address</th>
+        <th scope="col">Applying for: </th>
+        <th scope="col">I'd be a good home because...</th>
+        <th scope="col"></th>
+      </thead>  
+
+      <tbody>
+          <tr class="application_info">
+            <th scope="application_info"><%= @application.status %></th>
+            <td>
+                <%= @application.street_address %><br>
+                <%= @application.city %>, <%= @application.state %> <%= @application.zip_code %>
+            </td>
+            <td class="apply_to_pet">
+              <% @application.pets.each do |pet| %>
+                <p><%= link_to pet.name, "/pets/#{pet.id}" %></p>
+              <% end %>
+            </td>
+            <td> <%= @application.description %></td>
+          </tr>
+      </tbody>
+   </table>
+
+  <table class="table">
+    <h1>All Pets on this Application</h1>
+    <thead>
+      <th scope="col">Pet Name</th>
+      <th scope="col">Submitted On</th>
+      <th scope="col">Status</th>
+      <th scoe="col"></th>
+    </thead>
+
+    <tbody>
+      <% @pets.each_with_index do |pet, i| %>
+        <tr class="pets_info">
+          <th scope><%= pet.name %></th> 
+          <td><%= pet.updated_at %></td>
+          <td><%= @pet_app[i].status %></td>
+          <td>
+            <% if @pet_app[i].status == "Pending" %>
+              <%= form_with url: "/pet_applications", method: :patch, local: true do |f| %>
+                <%= f.hidden_field :pet_id, :value => pet.id %>
+                <%= f.hidden_field :application_id, :value => @application.id %>
+                <%= f.hidden_field :status_update, :value => "Accepted" %>
+                <%= f.submit "Approve" %>
+              <% end %>
+
+              <%= form_with url: "/pet_applications", method: :patch, local: true do |f| %>
+                <%= f.hidden_field :pet_id, :value => pet.id %>
+                <%= f.hidden_field :application_id, :value => @application.id %>
+                <%= f.hidden_field :status_update, :value => "Rejected" %>
+                <%= f.submit "Reject" %>
+              <% end %>
+            <% end %>
+          </td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+</div>

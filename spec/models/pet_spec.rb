@@ -22,35 +22,49 @@ RSpec.describe Pet, type: :model do
   end
 
   describe 'class methods' do
-    describe '#search' do
+    describe '::search' do
       it 'returns partial matches' do
         expect(Pet.search("Claw")).to eq([@pet_2])
       end
     end
 
-    describe '#adoptable' do
+    describe '::adoptable' do
       it 'returns adoptable pets' do
         expect(Pet.adoptable).to eq([@pet_1, @pet_2])
       end
     end
-  end
 
-  describe 'instance methods' do
-    describe '.shelter_name' do
-      it 'returns the shelter name for the given pet' do
-        expect(@pet_3.shelter_name).to eq(@shelter_1.name)
-      end
-    end
-
-    describe '.partial_search' do
+    describe '::partial_search' do
       it 'returns partial matches' do
         expect(Pet.search("Cla")).to eq([@pet_2])
       end
     end
 
-    describe '.average_age_of_all' do
+    describe '::average_age_of_all' do
       it 'returns average age of all pets' do
         expect(Pet.average_age_of_all).to eq(4)
+      end
+    end
+
+  end
+
+  describe 'instance methods' do
+    describe '#shelter_name' do
+      it 'returns the shelter name for the given pet' do
+        expect(@pet_3.shelter_name).to eq(@shelter_1.name)
+      end
+    end
+
+    describe '#toggle_adoptable_status' do
+      it 'toggles current adoptable boolean to opposite status' do
+        expect(@pet_1.adoptable).to be(true)
+        expect(@pet_3.adoptable).to be(false)
+        
+        @pet_1.toggle_adoptable_status
+        @pet_3.toggle_adoptable_status
+
+        expect(@pet_1.adoptable).to be(false)
+        expect(@pet_3.adoptable).to be(true)
       end
     end
   end

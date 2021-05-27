@@ -6,7 +6,7 @@ RSpec.describe 'the application show' do
     @pet_1 = Pet.create!(adoptable: true, age: 1, breed: 'sphynx', name: 'Lucille Bald', shelter_id: @shelter.id)
     @pet_2 = Pet.create!(adoptable: true, age: 3, breed: 'doberman', name: 'Lobster', shelter_id: @shelter.id)
     @pet_3 = Pet.create!(adoptable: false, age: 2, breed: 'saint bernard', name: 'Beethoven', shelter_id: @shelter.id)
-    @app_1 = Application.create!(name: "Suzie Kim", street_address: "123 State Street", city: "Boston", state: "Masachusetts", zip_code: 02115, description: "none", status: "In Progress" )
+    @app_1 = Application.create!(name: "Suzie Kim", street_address: "123 State Street", city: "Boston", state: "Masachusetts", zip_code: 02115, description: "none", status: "In Progress")
   end
   it "shows the application and all its attributes" do
     visit "/applications/#{@app_1.id}"
@@ -44,6 +44,9 @@ RSpec.describe 'the application show' do
       expect(page).to_not have_content("#{@pet_1.name}")
     end
 
+    fill_in 'Search', with: "Ba"
+    click_on("Search")
+
     click_on("Adopt #{@pet_1.name}")
 
     within(".apply_to_pet") do 
@@ -53,6 +56,9 @@ RSpec.describe 'the application show' do
 
   it 'can submit form when you add pet to application' do
     visit "/applications/#{@app_1.id}"
+
+    fill_in 'Search', with: "Ba"
+    click_on("Search")
     
     click_on("Adopt #{@pet_1.name}")
 

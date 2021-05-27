@@ -20,4 +20,8 @@ class Pet < ApplicationRecord
   def self.adoptable
     where(adoptable: true)
   end
+
+  def toggle_adoptable_status
+    toggle!(:adoptable)
+  end
 end

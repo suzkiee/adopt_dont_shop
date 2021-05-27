@@ -3,6 +3,7 @@ Rails.application.routes.draw do
   
   namespace :admin do
     resources :shelters, only: [:index, :show]
+    resources :applications, only: [:show]
   end
 
   resources :shelters
@@ -30,6 +31,7 @@ Rails.application.routes.draw do
   # post '/applications', to: 'applications#create'
 
   post 'pet_applications', to: 'pet_applications#add_pet'
+  patch 'pet_applications', to: 'pet_applications#update_status'
   
   resources :veterinary_offices 
   # get '/veterinary_offices', to: 'veterinary_offices#index'

@@ -2,7 +2,7 @@
 
 require 'rails_helper'
 
-RSpec.describe 'the admin show' do
+RSpec.describe 'the admin shelter show' do
   before(:each) do
     @shelter = Shelter.create(name: 'Aurora shelter', city: 'Aurora, CO', foster_program: false, rank: 9)
   end
