@@ -25,4 +25,12 @@ class Application < ApplicationRecord
       app.status == "Pending"
     end
   end
+
+  def pending_pets 
+    pet_apps = pending_pet_apps 
+    pets = pet_apps.flat_map do |app|
+      app.application.pets
+    end 
+    pets.uniq
+  end
 end
