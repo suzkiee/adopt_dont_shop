@@ -40,9 +40,16 @@
         <tr class="pets_info">
           <th scope><%= pet.name %></th> 
           <td><%= pet.updated_at %></td>
-          <td><%= @pet_app[i].status %></td>
           <td>
-            <% if @pet_app[i].status == "Pending" %>
+            <% if pet.adoptable %> 
+              <%= @pet_app[i].status %> 
+            <% else %>
+               Adopted
+            <% end %>
+          </td>
+
+          <td>
+            <% if @pet_app[i].status == "Pending" && pet.adoptable %>
               <%= form_with url: "/pet_applications", method: :patch, local: true do |f| %>
                 <%= f.hidden_field :pet_id, :value => pet.id %>
                 <%= f.hidden_field :application_id, :value => @application.id %>
@@ -56,7 +63,7 @@
                 <%= f.hidden_field :status_update, :value => "Rejected" %>
                 <%= f.submit "Reject" %>
               <% end %>
-            <% end %>
+           <% end %>
           </td>
         </tr>
       <% end %>
