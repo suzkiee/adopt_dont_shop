@@ -1,8 +1,13 @@
 <div class="content">
-  <h1><%= @shelter_details[0].name %></h1>
-  <h2><%= @shelter_details[0].city %></h2>
+  <h1><%= @shelter_details.name %></h1>
+  <h2><%= @shelter_details.city %></h2>
   <h1>Statistics</h1>
   <h2>Average Age of All Pets: <%= @average_age %></h2>
-  <h2>Number of Pets Adopted: <%= @adopted_pets %></h2>
-  <h2>Number of Adoptable Pets: <%= @adoptable_pets %>
+  <h2>Number of Pets Adopted: <%= @shelter.adopted_pets_count %></h2>
+  <h2>Number of Adoptable Pets: <%= @adoptable_pets %></h2>
+
+  <h1>Action Required</h1>
+  <% @pending_pet_apps.each_with_index do |app, i| %>
+  <%= link_to app.pets[i].name, "/admin/applications/#{app.id}" %>
+  <% end %>
 </div>
