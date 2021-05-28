@@ -45,8 +45,7 @@ RSpec.describe Pet, type: :model do
         expect(Pet.average_age_of_all).to eq(4)
       end
     end
-
-  end
+    end
 
   describe 'instance methods' do
     describe '#shelter_name' do

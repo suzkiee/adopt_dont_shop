@@ -23,7 +23,16 @@ RSpec.describe PetApplication, type: :model do
       app = Application.create!(name: "Suzie Kim", street_address: "123 State Street", city: "Boston", state: "Masachusetts", zip_code: 02115, description: "none", status: "Pending")
       pet_app = PetApplication.create!(pet: pet, application: app)
       
-      expect(PetApplication.find_pets(pet.id, app.id)).to eq([pet_app])
+      expect(PetApplication.find_pets(pet.id, app.id)).to eq([pet])
+    end
+
+    it '::find_pending_pets' do
+      shelter = Shelter.create!(name: 'Aurora shelter', city: 'Aurora, CO', foster_program: false, rank: 9)
+      pet = Pet.create!(adoptable: true, age: 1, breed: 'sphynx', name: 'Lucille Bald', shelter_id: shelter.id)
+      app = Application.create!(name: "Suzie Kim", street_address: "123 State Street", city: "Boston", state: "Masachusetts", zip_code: 02115, description: "none", status: "Pending")
+      pet_app = PetApplication.create!(pet: pet, application: app)
+      
+      expect(PetApplication.find_pets(pet.id, app.id)).to eq([pet])
     end
   end
 end
