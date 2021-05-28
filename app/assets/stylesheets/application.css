@@ -18,15 +18,13 @@
  @import url('https://fonts.googleapis.com/css2?family=Pattaya&display=swap');
  @import url('https://fonts.googleapis.com/css2?family=Lato&display=swap');
 
- .content{
-  margin-top: 50px;
- }
+
 
  .navbar {
    overflow: hidden;
    background-color: #8E5DDE;
    color: #FFFFFF;
-   position: fixed;
+   display: block
    top: 0;
    width: 100%;
    z-index: 2;
