@@ -7,10 +7,10 @@ class Admin::SheltersController < ApplicationController
   end
 
   def show
-    shelter = Shelter.find(params[:id])
-    @shelter_details = shelter.find_name_and_city
+    @shelter = Shelter.find(params[:id])
+    @shelter_details = @shelter.find_name_and_city[0]
     @average_age = Pet.average_age_of_all
     @adoptable_pets = Pet.adoptable.count
-    @adopted_pets = shelter.adopted_pets_count
+    @pending_pet_apps = @shelter.pets.first.applications.pending_pet_apps
   end
 end
