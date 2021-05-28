@@ -21,12 +21,13 @@
       </ul>
     </header>
 
-    <% flash.each do |type, msg| %>
-      <div class="alert-info">
-        <%= msg %>
-      </div>
-    <% end %>
-    <div class="content"> </content>
+    <div class="content"> 
+      <% flash.each do |type, msg| %>
+       <div class="alert-info">
+         <%= msg %>
+       </div>
+      <% end %>
+    </content>
     <%= yield %>
   </body>
 </html>
