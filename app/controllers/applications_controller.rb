@@ -23,7 +23,7 @@ class ApplicationsController < ApplicationController
     @pets_count = @application.pets.count
 
     if params[:search] 
-      @pets = Pet.partial_search(params[:search])
+      @pets = Pet.adoptable.partial_search(params[:search])
     else 
       @pets = []
     end
