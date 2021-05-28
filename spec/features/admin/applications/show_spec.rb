@@ -1,4 +1,4 @@
-# spec/features/admin/show_spec
+# spec/features/admin/applications/show_spec
 require 'rails_helper'
 
 RSpec.describe 'the admin applications page'do
@@ -8,9 +8,11 @@ RSpec.describe 'the admin applications page'do
     @pet_2 = Pet.create!(adoptable: true, age: 3, breed: 'doberman', name: 'Lobster', shelter_id: @shelter.id)
     @pet_3 = Pet.create!(adoptable: false, age: 2, breed: 'saint bernard', name: 'Beethoven', shelter_id: @shelter.id)
     @app = Application.create!(name: "Suzie Kim", street_address: "123 State Street", city: "Boston", state: "Masachusetts", zip_code: 02115, description: "none", status: "Pending")
+    @app_2 = Application.create!(name: "Max Wannae", street_address: "123 Here Road", city: "Liliput", state: "Missouri", zip_code: 00000, description: "none", status: "Pending")
     PetApplication.create!(pet: @pet_1, application: @app)
     PetApplication.create!(pet: @pet_2, application: @app)
     PetApplication.create!(pet: @pet_3, application: @app)
+    PetApplication.create!(pet: @pet_1, application: @app_2)
   end
 
   it "shows the application and all its attributes" do
@@ -70,7 +72,7 @@ RSpec.describe 'the admin applications page'do
     visit "/admin/applications/#{@app.id}"
 
     expect(page).to have_content("Pending")
-
+    save_and_open_page
     2.times do 
       first(:button, 'Approve').click
     end
@@ -80,5 +82,25 @@ RSpec.describe 'the admin applications page'do
     within('.application') do
       expect(page).to have_content("Rejected")
     end
+  end
+  
+  it 'displays message for adopted pet on other pending applications' do
+    visit "/admin/applications/#{@app.id}"
+    
+    expect(@pet_1.adoptable).to eq(true)
+    expect(page).to have_content("#{@pet_1.name}")
+    
+    within('.pets_info') do
+      first(:button, 'Approve').click
+    end
+
+    expect(page).to have_content("Accepted")
+    expect(@pet_1.adoptable).to eq(false)
+
+    visit "/admin/applications/#{@app_2.id}"
+    
+    expect(page).to have_content("#{@pet_1.name}")
+  
+    expect(page).to have_content("This pet has already been adopted.")
   end
 end
