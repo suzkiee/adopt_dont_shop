@@ -47,7 +47,7 @@ RSpec.describe 'the admin shelter show page' do
     pet_app = PetApplication.create!(pet: @pet_1, application: app, status: "Pending")
     
     visit "/admin/shelters/#{@shelter.id}"
-    save_and_open_page
+
     expect(page).to have_content("Action Required")
     expect(page).to have_link("Lucille Bald")
     

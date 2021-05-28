@@ -8,6 +8,6 @@
 
   <h1>Action Required</h1>
   <% @pending_pet_apps.each_with_index do |app, i| %>
-  <%= link_to app.pets[i].name, "/admin/applications/#{app.id}" %>
+    <%= link_to app.pets[i].name, "/admin/applications/#{app.id}" %>
   <% end %>
 </div>
