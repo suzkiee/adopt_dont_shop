@@ -30,26 +30,25 @@ RSpec.describe Application, type: :model do
   end
 
   describe '#instance methods' do
-    it '#all_pets_accepted?' do
+    before :each do 
       shelter = Shelter.create!(name: 'Aurora shelter', city: 'Aurora, CO', foster_program: false, rank: 9)
-      pet_1 = Pet.create!(adoptable: true, age: 1, breed: 'sphynx', name: 'Lucille Bald', shelter_id: shelter.id)
-      pet_2 = Pet.create!(adoptable: true, age: 4, breed: 'whippet', name: 'May', shelter_id: shelter.id)
-      app = Application.create!(name: "Suzie Kim", street_address: "123 State Street", city: "Boston", state: "Masachusetts", zip_code: 02115, description: "none", status: "Pending")
-      pet_app_1 = PetApplication.create!(pet: pet_1, application: app, status: "Accepted")
-      pet_app_2 = PetApplication.create!(pet: pet_2, application: app, status: "Accepted")
+      @pet_1 = Pet.create!(adoptable: true, age: 1, breed: 'sphynx', name: 'Lucille Bald', shelter_id: shelter.id)
+      @pet_2 = Pet.create!(adoptable: true, age: 4, breed: 'whippet', name: 'May', shelter_id: shelter.id)
+      @app = Application.create!(name: "Suzie Kim", street_address: "123 State Street", city: "Boston", state: "Masachusetts", zip_code: 02115, description: "none", status: "Pending")
+    end
 
-      expect(app.all_pets_accepted?).to eq(true)
+    it '#all_pets_accepted?' do
+      pet_app_1 = PetApplication.create!(pet: @pet_1, application: @app, status: "Accepted")
+      pet_app_2 = PetApplication.create!(pet: @pet_2, application: @app, status: "Accepted")
+
+      expect(@app.all_pets_accepted?).to eq(true)
     end
 
     it '#any_pets_rejected?' do
-      shelter = Shelter.create!(name: 'Aurora shelter', city: 'Aurora, CO', foster_program: false, rank: 9)
-      pet_1 = Pet.create!(adoptable: true, age: 1, breed: 'sphynx', name: 'Lucille Bald', shelter_id: shelter.id)
-      pet_2 = Pet.create!(adoptable: true, age: 4, breed: 'whippet', name: 'May', shelter_id: shelter.id)
-      app = Application.create!(name: "Suzie Kim", street_address: "123 State Street", city: "Boston", state: "Masachusetts", zip_code: 02115, description: "none", status: "Pending")
-      pet_app_1 = PetApplication.create!(pet: pet_1, application: app, status: "Rejected")
-      pet_app_2 = PetApplication.create!(pet: pet_2, application: app, status: "Accepted")
-
-      expect(app.any_pets_rejected?).to eq(true)
+      pet_app_1 = PetApplication.create!(pet: @pet_1, application: @app, status: "Accepted")
+      pet_app_2 = PetApplication.create!(pet: @pet_2, application: @app, status: "Rejected")
+      
+      expect(@app.any_pets_rejected?).to eq(true)
     end
   end
 end

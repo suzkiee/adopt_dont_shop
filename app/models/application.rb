@@ -7,7 +7,7 @@ class Application < ApplicationRecord
   validates :city, presence: true
   validates :state, presence: true
   validates :zip_code, presence: true, numericality: true
-
+  
   def all_pets_accepted?
     pet_applications.all? do |app|
       app.status == "Accepted"
