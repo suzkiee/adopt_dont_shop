@@ -22,8 +22,7 @@ class ApplicationsController < ApplicationController
     @application = Application.find(params[:id])
     @pets_count = @application.pets.count
 
-    if params[:adopt] && !application.pets.include?(Pet.find(params[:adopt])) 
-    elsif params[:search] 
+    if params[:search] 
       @pets = Pet.partial_search(params[:search])
     else 
       @pets = []
