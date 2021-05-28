@@ -66,11 +66,11 @@
         <% end %>
       </tbody>
     </table>
-    <% if @pets_count > 0%>
+    <% if @pets_count > 0 %>
       <%= form_with url: "/applications/#{@application.id}", method: :patch, local: true  do |f| %>
         <p><%= f.label :description, "I'd be good home because..." %></p>
         <p><%= f.text_area :description %></p>
-          <%= f.hidden_field :status, :value => "Pending" %>
+           <%= f.hidden_field :status, :value => "Pending" %>
         <p><%= f.submit "Submit My Application" %></p>
       <% end %>
     <% end %>

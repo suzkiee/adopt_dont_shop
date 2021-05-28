@@ -16,6 +16,13 @@ RSpec.describe 'the admin shelters index' do
   end
 
   it 'links to shelter show page' do
+    pet_1 = @shelter_1.pets.create!(adoptable: true, age: 1, breed: 'sphynx', name: 'Lucille Bald', shelter_id: @shelter_3.id)
+    pet_2 = @shelter_1.pets.create!(adoptable: true, age: 4, breed: 'dingo', name: 'Maxy', shelter_id: @shelter_2.id)
+    app_1 = Application.create!(name: "Suzie Kim", street_address: "123 State Street", city: "Boston", state: "Masachusetts", zip_code: 02115, description: "none", status: "Pending" )
+    app_2 = Application.create!(name: "Max Bob", street_address: "123 Play Street", city: "Meford", state: "Masachusetts", zip_code: 02155, description: "none", status: "Pending" )
+    PetApplication.create!(pet: pet_1, application: app_1) 
+    PetApplication.create!(pet: pet_2, application: app_2) 
+    
     visit "/admin/shelters"
   
     click_on("Aurora shelter")

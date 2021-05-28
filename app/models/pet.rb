@@ -13,15 +13,26 @@ class Pet < ApplicationRecord
     average(:age)
   end
 
+  def self.adoptable
+    where(adoptable: true)
+  end
+  
   def shelter_name
     shelter.name
   end
 
-  def self.adoptable
-    where(adoptable: true)
+  def self.toggle_accepted_pets 
+    accepted = joins(:pet_applications).where("pet_applications.status = 'Accepted'")
+    accepted.each do |pet|
+      pet.toggle!(:adoptable)
+    end
   end
 
   def toggle_adoptable_status
     toggle!(:adoptable)
   end
-end
+
+  def shelter_name
+    shelter.name
+  end
+end 

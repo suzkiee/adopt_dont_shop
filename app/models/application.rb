@@ -7,7 +7,7 @@ class Application < ApplicationRecord
   validates :city, presence: true
   validates :state, presence: true
   validates :zip_code, presence: true, numericality: true
-
+  
   def all_pets_accepted?
     pet_applications.all? do |app|
       app.status == "Accepted"
@@ -18,5 +18,9 @@ class Application < ApplicationRecord
     pet_applications.any? do |app|
       app.status == "Rejected"
     end
+  end
+
+  def self.pending_pet_apps 
+    joins(:pets).where("pet_applications.status = 'Pending'")
   end
 end

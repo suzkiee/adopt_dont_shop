@@ -46,6 +46,21 @@ RSpec.describe Pet, type: :model do
       end
     end
 
+    describe '::toggle_accepted_pets' do
+      it 'toggles accepted pets adoptable boolean to opposite status' do
+        app = Application.create!(name: "Suzie Kim", street_address: "123 State Street", city: "Boston", state: "Masachusetts", zip_code: 02115, description: "none", status: "Pending")
+        pet_app_1 = PetApplication.create!(pet: @pet_1, application: app, status: "Accepted")
+        pet_app_2 = PetApplication.create!(pet: @pet_3, application: app, status: "Accepted")
+        
+        expect(@pet_1.adoptable).to be(true)
+        expect(@pet_3.adoptable).to be(false)
+
+        Pet.toggle_accepted_pets
+   
+        expect(Pet.all[1].adoptable).to be(false)
+        expect(Pet.all[2].adoptable).to be(true)
+      end
+    end
   end
 
   describe 'instance methods' do
@@ -54,7 +69,7 @@ RSpec.describe Pet, type: :model do
         expect(@pet_3.shelter_name).to eq(@shelter_1.name)
       end
     end
-
+    
     describe '#toggle_adoptable_status' do
       it 'toggles current adoptable boolean to opposite status' do
         expect(@pet_1.adoptable).to be(true)
